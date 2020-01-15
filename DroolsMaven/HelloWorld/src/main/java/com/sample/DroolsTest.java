@@ -1,15 +1,30 @@
 package com.sample;
 
+import com.sample.model.Check;
+import com.sample.model.multipleModelMethod.DealParticipantRuleModel;
+import com.sample.DealDataGeneratorForMultipleModelMethodology;
+import com.sample.model.multipleModelMethod.ProductRuleModel;
+import com.sample.model.multipleModelMethod.StatusRuleModel;
+import com.sample.model.singleEntity.CrossCheckAndCurrentDealRule;
+import com.sample.model.singleFactMethodology.DealRuleModel;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
 import com.sample.model.Account;
-
+import org.drools.core.spi.KnowledgeHelper;
 /**
  * This is a sample class to launch a rule.
  */
 public class DroolsTest {
+
+    public static void help(final KnowledgeHelper drools, final String message){
+        System.out.println(message);
+        System.out.println("\nrule triggered: " + drools.getRule().getName());
+    }
+    public static void helper(final KnowledgeHelper drools){
+        System.out.println("\nrule triggered: " + drools.getRule().getName());
+    }
 
     public static final void main(String[] args) {
         try {
@@ -18,10 +33,26 @@ public class DroolsTest {
     	    KieContainer kContainer = ks.getKieClasspathContainer();
         	KieSession kSession = kContainer.newKieSession("ksession-rules");
 
-            // go !
-        	Account account = new Account(200);
-            account.withdraw(150);
-            kSession.insert(account);
+//            DealParticipantRuleModel currentDealParticipant = DealDataGeneratorForMultipleModelMethodology.generateDealParticipantTexasBlindCo();
+//            DealParticipantRuleModel crossCheckedDealParticipant = DealDataGeneratorForMultipleModelMethodology.generateDealParticipantGoogleInc();
+//            ProductRuleModel currentDealProduct = DealDataGeneratorForMultipleModelMethodology.generateProductDebt();
+//            ProductRuleModel crossCheckedDealProduct = DealDataGeneratorForMultipleModelMethodology.generateProductDebtTwo();
+//            StatusRuleModel statusRuleModel = DealDataGeneratorForMultipleModelMethodology.generateStatusRuleModel();
+//            kSession.insert(currentDealParticipant);
+//            kSession.insert(crossCheckedDealParticipant);
+//            kSession.insert(currentDealProduct);
+//            kSession.insert(crossCheckedDealProduct);
+//            kSession.insert(statusRuleModel);
+
+//            DealRuleModel currentDeal = DealDataGeneratorForSingleMethodology.generateDealRuleModelSingleTexasBlind();
+//            DealRuleModel crossCheckedDeal = DealDataGeneratorForSingleMethodology.generateDealRuleModelSingleTGoogleInc();
+//            kSession.insert(currentDeal);
+//            kSession.insert(crossCheckedDeal);
+
+          //  CrossCheckAndCurrentDealRule crossCheckAndCurrentDealRule = DealDataGeneratorForAllInOneMethodology.generateCrossCheckAndCurrentDealRule();
+            CrossCheckAndCurrentDealRule crossCheckAndCurrentDealRuleShouldBeRed = DealDataGeneratorForAllInOneMethodology.generateCrossCheckAndCurrentDealRuleScenarioOnePointTwoTrue();
+           // kSession.insert(crossCheckAndCurrentDealRule);
+            kSession.insert(crossCheckAndCurrentDealRuleShouldBeRed);
             kSession.fireAllRules();
         } catch (Throwable t) {
             t.printStackTrace();
