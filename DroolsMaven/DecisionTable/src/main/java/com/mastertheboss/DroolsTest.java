@@ -1,5 +1,6 @@
 package com.mastertheboss;
 
+import com.mastertheboss.model.BPNRuleEngineInputModel;
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
@@ -15,19 +16,22 @@ public class DroolsTest {
 			KieContainer kContainer = ks.getKieClasspathContainer();
 			KieSession kSession = kContainer.newKieSession("ksession-rule");
 
-			Customer customer1 = new Customer("Frank");
-			customer1.setAge(4);
+			BPNRuleEngineInputModel shouldBeGreen = BPNRuleEngineInputModelGenerator.generateCrossCheckAndCurrentDealRuleScenarioOnePointTwoTrue();
+			FactHandle fact1 = kSession.insert(shouldBeGreen);
+			//BPNRuleEngineInputModel shouldntBeGreen = BPNRuleEngineInputModelGenerator.generateCrossCheckAndCurrentDealRule();
+			//FactHandle fact2 = kSession.insert(shouldntBeGreen);
 
-			Customer customer2 = new Customer("John");
-			customer2.setAge(1);
+			System.out.println("We are going to run the BPN Rules Engine, the data points look as such: \n");
+			System.out.println(shouldBeGreen);
 
-			FactHandle fact1 = kSession.insert(customer1);
-			FactHandle fact2 = kSession.insert(customer2);
-			
 			kSession.fireAllRules();
 
-			System.out.println("The discount for the Customer " + customer1.getName() + " is " + customer1.getDiscount());
-			System.out.println("The discount for the Customer " + customer2.getName() + " is " + customer2.getDiscount());
+			System.out.println("We have finished running BPN Rules Engine, the data points look as such: \n");
+			System.out.println(shouldBeGreen);
+
+//			System.out.println("The color code is: " + shouldBeGreen.getColorCode());
+			//System.out.println("The color code is: " + shouldntBeGreen.getColorCode());
+			//System.out.println("The discount for the Customer " + customer2.getName() + " is " + customer2.getDiscount());
 
 		} catch (Throwable t) {
 			t.printStackTrace();

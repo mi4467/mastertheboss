@@ -25,7 +25,7 @@ public class RuleTest {
 
 	@Before
 	public void setup() {
-		Resource dt = ResourceFactory.newClassPathResource("rules/rules.xls", getClass());
+		Resource dt = ResourceFactory.newClassPathResource("rules/rules_for_jpmc.xls", getClass());
 		kSession = getKieSession(dt);
 	}
 
