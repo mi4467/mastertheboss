@@ -7,6 +7,7 @@ import function com.sample.DroolsTest.helper;
 
 //These are rules to display the 11 data points for the three data model input methodologies
 
+/*
 rule "testMultipleSimplePrintingToSeeIfWeHaveAllDataPoints"
 when
     $dealParticipantCurrentDeal : DealParticipantRuleModel(CurrentDealOrCrossCheckedDeal == true)
@@ -48,7 +49,7 @@ then
     System.out.println("Deal Status of Cross-Checked Deal: " + $dealRuleModelCrossCheckedDeal.getDealStatus());
 end
 
-/*
+
 rule "testAllInOneObject"
 when
     $dealRuleModel : CrossCheckAndCurrentDealRule()
@@ -98,4 +99,58 @@ when
 then
     helper(drools);
     System.out.println("This will give a red Icon");
+    System.out.println("Current Deal Company Full Name: " + $dealRuleModel.getCompanyFullNameCurrent());
+    System.out.println("Current Deal Company Role: " + $dealRuleModel.getCompanyRoleCurrent());
+    System.out.println("Current Deal Company isClient: " + $dealRuleModel.getCompanyIsClientCurrent());
+    System.out.println("Current Deal Product: " + $dealRuleModel.getProductCurrent());
+    System.out.println("Current Deal Purpose: " + $dealRuleModel.getPurposeCurrent());
+    System.out.println("Cross Checked Deal Company Full Name: " + $dealRuleModel.getCompanyFullNameCrossChecked());
+    System.out.println("Cross Checked Company Role: " + $dealRuleModel.getCompanyRoleCrossChecked());
+    System.out.println("Cross Checked Company isClient: " + $dealRuleModel.getCompanyIsClientCrossChecked());
+    System.out.println("Product of Cross Checked Deal: " + $dealRuleModel.getProductCrossChecked());
+    System.out.println("CA Status of Cross-Checked Deal: " + $dealRuleModel.getCaStatusCrossChecked());
+    System.out.println("Deal Status of Cross-Checked Deal: " + $dealRuleModel.getDealStatusCrossChecked());
+end
+
+rule "testScenarioOnePointTwoMultiModelInputSplitByCurrentAndCrossChecked"
+when
+    $dealRuleModelCurrentDeal : DealRuleModel( currentDealOrCrossCheckedDeal == true && companyRole == "Seller" && product == "M&A" && isClient == "N")
+    $dealRuleModelCrossCheckedDeal : DealRuleModel( currentDealOrCrossCheckedDeal == false && isClient == "Y" && caStatus == "Active")
+then
+    helper(drools);
+    System.out.println("This will give a red Icon");
+    System.out.println("Current Deal Company Full Name: " + $dealRuleModelCurrentDeal.getCompanyFullName());
+    System.out.println("Current Deal Company Role: " + $dealRuleModelCurrentDeal.getCompanyRole());
+    System.out.println("Current Deal Company isClient: " + $dealRuleModelCurrentDeal.getIsClient());
+    System.out.println("Current Deal Product: " + $dealRuleModelCurrentDeal.getProduct());
+    System.out.println("Current Deal Purpose: " + $dealRuleModelCurrentDeal.getPurpose());
+    System.out.println("Cross Checked Deal Company Full Name: " + $dealRuleModelCrossCheckedDeal.getCompanyFullName());
+    System.out.println("Cross Checked Company Role: " + $dealRuleModelCrossCheckedDeal.getCompanyRole());
+    System.out.println("Cross Checked Company isClient: " + $dealRuleModelCrossCheckedDeal.getIsClient());
+    System.out.println("Product of Cross Checked Deal: " + $dealRuleModelCrossCheckedDeal.getProduct());
+    System.out.println("CA Status of Cross-Checked Deal: " + $dealRuleModelCrossCheckedDeal.getCaStatus());
+    System.out.println("Deal Status of Cross-Checked Deal: " + $dealRuleModelCrossCheckedDeal.getDealStatus());
+end
+
+rule "testMultipleByParticipantAndProductAndStatusScenarioOnePointTwo"
+when
+    $dealParticipantCurrentDeal : DealParticipantRuleModel(CurrentDealOrCrossCheckedDeal == true && companyRole == "Seller" && isClient == "N")
+    $dealParticipantCrossCheckedDeal : DealParticipantRuleModel(CurrentDealOrCrossCheckedDeal == false && isClient == "Y")
+    $productAndPurposeCurrentDeal : ProductRuleModel(CurrentDealOrCrossCheckedDeal == true && product == "M&A")
+    $productCrossCheckedDeal : ProductRuleModel(CurrentDealOrCrossCheckedDeal == false)
+    $crossCheckedDealAndCAStatus : StatusRuleModel(caStatus == "Active")
+then
+    helper(drools);
+    System.out.println("This Icon Will be red");
+    System.out.println("Current Deal Company Full Name: " + $dealParticipantCurrentDeal.getCompanyFullName());
+    System.out.println("Current Deal Company Role: " + $dealParticipantCurrentDeal.getCompanyRole());
+    System.out.println("Current Deal Company isClient: " + $dealParticipantCurrentDeal.getIsClient());
+    System.out.println("Current Deal Product: " + $productAndPurposeCurrentDeal.getProduct());
+    System.out.println("Current Deal Purpose: " + $productAndPurposeCurrentDeal.getPurpose());
+    System.out.println("Cross Checked Deal Company Full Name: " + $dealParticipantCrossCheckedDeal.getCompanyFullName());
+    System.out.println("Cross Checked Company Role: " + $dealParticipantCrossCheckedDeal.getCompanyRole());
+    System.out.println("Cross Checked Company isClient: " + $dealParticipantCrossCheckedDeal.getIsClient());
+    System.out.println("Product of Cross Checked Deal: " + $productCrossCheckedDeal.getProduct());
+    System.out.println("CA Status of Cross-Checked Deal: " + $crossCheckedDealAndCAStatus.getCaStatus());
+    System.out.println("Deal Status of Cross-Checked Deal: " + $crossCheckedDealAndCAStatus.getDealStatus());
 end

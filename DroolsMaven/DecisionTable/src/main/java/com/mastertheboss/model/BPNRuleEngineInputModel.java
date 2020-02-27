@@ -1,6 +1,8 @@
 package com.mastertheboss.model;
 
 import java.lang.reflect.Field;
+import java.util.ArrayList;
+import java.util.List;
 
 public class BPNRuleEngineInputModel {
     String companyFullNameCurrent;
@@ -15,6 +17,26 @@ public class BPNRuleEngineInputModel {
     String caStatusCrossChecked;
     String dealStatusCrossChecked;
     String colorCode;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    Customer customer;
+
+    public List<String> getTestList() {
+        return testList;
+    }
+
+    public void setTestList(List<String> testList) {
+        this.testList = testList;
+    }
+
+    List<String> testList = new ArrayList<String>();
 
     public String getColorCode() {
         return colorCode;

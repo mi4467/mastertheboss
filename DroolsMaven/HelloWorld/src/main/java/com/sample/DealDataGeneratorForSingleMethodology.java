@@ -27,4 +27,27 @@ public class DealDataGeneratorForSingleMethodology {
         crossCheckedDealRuleModel.setCurrentDealOrCrossCheckedDeal(false);
         return crossCheckedDealRuleModel;
     }
+
+    public static DealRuleModel generateDealRuleModelRedCurrent() {
+        DealRuleModel currentDealRuleModel = new DealRuleModel();
+        currentDealRuleModel.setCompanyFullName("TEXAS BLIND CO");
+        currentDealRuleModel.setCompanyRole("Seller");
+        currentDealRuleModel.setIsClient("N");
+        currentDealRuleModel.setProduct("M&A");
+        currentDealRuleModel.setPurpose("Other");
+        currentDealRuleModel.setCurrentDealOrCrossCheckedDeal(true);
+        return  currentDealRuleModel;
+    }
+
+    public static DealRuleModel generateDealRuleModelRedCrossChecked() {
+        DealRuleModel crossCheckedDealRuleModel = new DealRuleModel();
+        crossCheckedDealRuleModel.setCompanyFullName("Google, INC>");
+        crossCheckedDealRuleModel.setCompanyRole("Seller");
+        crossCheckedDealRuleModel.setIsClient("Y");
+        crossCheckedDealRuleModel.setProduct("Debt");
+        crossCheckedDealRuleModel.setCaStatus("Active");
+        crossCheckedDealRuleModel.setDealStatus("Active");
+        crossCheckedDealRuleModel.setCurrentDealOrCrossCheckedDeal(false);
+        return crossCheckedDealRuleModel;
+    }
 }

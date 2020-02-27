@@ -1,11 +1,33 @@
 package com.mastertheboss.model;
 
 
+import java.util.List;
+
 public class Customer {
 
 	private int age;
 	private int discount;
 	private String name;
+
+	public com.mastertheboss.model.nestedCustomer getNestedCustomer() {
+		return nestedCustomer;
+	}
+
+	public void setNestedCustomer(com.mastertheboss.model.nestedCustomer nestedCustomer) {
+		this.nestedCustomer = nestedCustomer;
+	}
+
+	private nestedCustomer nestedCustomer;
+
+	public List<String> getPurposes() {
+		return purposes;
+	}
+
+	public void setPurposes(List<String> purposes) {
+		this.purposes = purposes;
+	}
+
+	private List<String> purposes;
 
 	public Customer(String name) {
 		super();
@@ -34,6 +56,11 @@ public class Customer {
 
 	public void setDiscount(int discount) {
 		this.discount = discount;
+	}
+
+	@Override
+	public String toString() {
+		return name + ", " + nestedCustomer.getNestedName() + "," + getPurposes();
 	}
 
 }

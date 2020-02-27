@@ -49,10 +49,27 @@ public class DroolsTest {
 //            kSession.insert(currentDeal);
 //            kSession.insert(crossCheckedDeal);
 
-          //  CrossCheckAndCurrentDealRule crossCheckAndCurrentDealRule = DealDataGeneratorForAllInOneMethodology.generateCrossCheckAndCurrentDealRule();
+            //One Type
             CrossCheckAndCurrentDealRule crossCheckAndCurrentDealRuleShouldBeRed = DealDataGeneratorForAllInOneMethodology.generateCrossCheckAndCurrentDealRuleScenarioOnePointTwoTrue();
-           // kSession.insert(crossCheckAndCurrentDealRule);
             kSession.insert(crossCheckAndCurrentDealRuleShouldBeRed);
+
+            //Two Type
+            DealRuleModel currentDealRule = DealDataGeneratorForSingleMethodology.generateDealRuleModelRedCurrent();
+            DealRuleModel crossCheckedDealRule = DealDataGeneratorForSingleMethodology.generateDealRuleModelRedCrossChecked();
+            kSession.insert(crossCheckedDealRule);
+            kSession.insert(currentDealRule);
+
+            //Three Type
+            DealParticipantRuleModel currentDealParticipantRed = DealDataGeneratorForMultipleModelMethodology.generateDealParticipantTexasBlindCoShouldBeRed();
+            DealParticipantRuleModel crossCheckedParticipantRed = DealDataGeneratorForMultipleModelMethodology.generateDealParticipantGoogleIncShouldBeRed();
+            StatusRuleModel statusRuleModelRed = DealDataGeneratorForMultipleModelMethodology.generateStatusRuleModel();
+            ProductRuleModel currentProductRuleRed = DealDataGeneratorForMultipleModelMethodology.generateProductDebtOneRed();
+            ProductRuleModel crossProductRuleRed = DealDataGeneratorForMultipleModelMethodology.generateProductDebtTwoRed();
+            kSession.insert(currentDealParticipantRed);
+            kSession.insert(crossCheckedParticipantRed);
+            kSession.insert(statusRuleModelRed);
+            kSession.insert(currentProductRuleRed);
+            kSession.insert(crossProductRuleRed);
             kSession.fireAllRules();
         } catch (Throwable t) {
             t.printStackTrace();
